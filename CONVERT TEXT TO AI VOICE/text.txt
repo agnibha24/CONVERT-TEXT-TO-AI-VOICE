@@ -1,0 +1,10 @@
+
+
+                    DATA TYPES IN JAVASCRIPT
+
+    Primitive                           Non - Primitive
+    1. NUMBER                           1. OBJECT
+    2. STRING                           2. ARRAYS 
+    3. BOOLEAN                          3. FUNCTION
+    4. NULL
+    5. UNDEFINED        

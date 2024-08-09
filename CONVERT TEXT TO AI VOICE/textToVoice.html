@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Convert To AI Voice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstraps@5.3..0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- <style type="text/css">
+        body {
+			background: #abc1c4;
+		}
+		div {
+			border-radius: 10px;
+			background: #abc1c4;
+			box-shadow: inset 35px 35px 70px #91a4a7,
+						inset -35px -35px 70px #c5dee1;
+		}
+		textarea, select, button {
+			width: 100%;
+			border-radius: 5px;
+			background: #abc1c4;
+			box-shadow: inset 35px 35px 70px #91a4a7,
+					 	inset -35px -35px 70px #c5dee1;
+		}
+
+		textarea {
+			padding: 10px;
+			outline: none;
+		}
+		select {
+			margin-top: 8px;
+			margin-bottom: 8px;
+			padding: 8px;
+			border: 1px solid #abc1c4;
+		}
+
+		button {
+			padding: 8px;
+			border: 1px solid #abc1c4;
+		}
+
+	</style> -->
+
+	<style type="text/css">
+        body {
+            background: rgb(0, 0, 0);
+        }
+        div{
+            border-radius: 15px;
+            background: #4b8add;
+            box-shadow:  -6px -6px 12px 0px #4075bc,
+                 6px 6px 12px 0px #569ffe;
+        }
+        textarea, button, select{
+            width: 100%;
+            color: whitesmoke;
+            border-radius: 10px;
+            background: black;
+            box-shadow:  32px -32px 65px #40bc86,
+                 -32px 32px 65px #56feb6;
+        }
+        textarea{
+            padding: 10px;
+            outline: none;
+        }
+        select{
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding: 8px;
+            outline: none;
+        }
+        button{
+            padding: 8px;
+            border:1px solid #abc1c4;
+        }
+    </style>
+    
+    
+    </head>
+    <body>
+        <div class="container col-lg-5 p-4 mt-5">
+            <h4 class="text-center mb-3 text-dark">Text To AI Voice Converter - OctaCoder</h4>
+            <textarea id="textArea" rows="10" placeholder="Type Your Text Here..."></textarea>
+            <select id="voiceSelect"></select>
+            <button id="speakButton">Click To Convert AI Voice</button>
+        </div>
+    
+        <script type="text/javascript">
+            const button = document.querySelector('#speakButton');
+            const textArea = document.querySelector('#textArea');
+            const voiceSelect = document.querySelector('#voiceSelect');
+        
+            function loadVoices() {
+              const voices = speechSynthesis.getVoices();
+              voiceSelect.innerHTML = '';
+          
+              const chooseVoiceOption = document.createElement('option');
+              chooseVoiceOption.value = "";
+              chooseVoiceOption.textContent = "Select Your Voice";
+              voiceSelect.appendChild(chooseVoiceOption);
+          
+              voices.forEach(voice => {
+                const option = document.createElement('option');
+                option.value = voice.name;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                voiceSelect.appendChild(option);
+              });
+            }
+        
+            speechSynthesis.addEventListener('voiceschanged', loadVoices);
+          
+            button.addEventListener('click', () => {
+              const utterance = new SpeechSynthesisUtterance(textArea.value);
+              const selectedVoice = voiceSelect.value;
+              
+              const voices = speechSynthesis.getVoices();
+              const voice = voices.find(v => v.name === selectedVoice);
+              
+              if (voice) {
+                utterance.voice = voice;
+                speechSynthesis.speak(utterance);
+              }
+            });
+            voiceSelect.addEventListener('change', () => {
+                speechSynthesis.cancel();
+                button.click();
+              });
+          </script>
+    
+    </body>
+    </html>       
